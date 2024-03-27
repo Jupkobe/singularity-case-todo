@@ -1,94 +1,83 @@
 import Image from "next/image";
-import styles from "./page.module.css";
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+export default function TodoMain() {
+  const fakeData = [
+    {
+      id: 1,
+      text: "Yapılacak İş 1",
+      isCompleted: false,
+    },
+    {
+      id: 2,
+      text: "Yapılacak İş 2",
+      isCompleted: false,
+    },
+    {
+      id: 5,
+      text: "Yapılacak İş 2",
+      isCompleted: false,
+    },
+    {
+      id: 3,
+      text: "Yapılacak İş 3",
+      isCompleted: true,
+    },
+    {
+      id: 4,
+      text: "Yapılacak İş 4",
+      isCompleted: true,
+    },
+  ];
+
+  const completedTodos = fakeData.filter((todo) => todo.isCompleted);
+  const uncompletedTodos = fakeData.filter((todo) => !todo.isCompleted);
+
+  const completedTodosList = completedTodos.map((todo) => (
+    <div key={todo.id} className="card m-2  ">
+      <div className="card-body p-2">
+        <div className="card-text text-start ">
+          <s>{todo.text}</s>
         </div>
       </div>
+    </div>
+  ));
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+  const uncompletedTodosList = uncompletedTodos.map((todo) => (
+    <div key={todo.id} className="card m-2">
+      <div className="card-body p-2">
+        <div className="card-text text-start ">{todo.text}</div>
       </div>
+    </div>
+  ));
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+  return (
+    <main className="container text-center p-2">
+      <div className="row justify-content-center">
+        <div className="col-8 border border-black rounded ">
+          <header className="d-flex flex-column align-items-center py-3">
+            <h1>TODO APP</h1>
+          </header>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+          <div className="row">
+            <div className="col-10">
+              <input type="text" class="form-control" placeholder="Yeni Todo" />
+            </div>
+            <div className="col-2">
+              <button className="btn btn-primary w-100">Ekle</button>
+            </div>
+          </div>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+          <div className="row mt-5">
+            <div className="col-6  border-end p-0">
+              <h5>Tamamlanmamış</h5>
+              {uncompletedTodosList}
+            </div>
+            <div className="col-6 p-0 ">
+              <h5>Tamamlanmış</h5>
+              {completedTodosList}
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   );
