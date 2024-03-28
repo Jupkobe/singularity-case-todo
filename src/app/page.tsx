@@ -1,5 +1,4 @@
 // Types
-import { Todo, TodoListProps } from "./types";
 import { NextPage } from "next";
 
 // Components
