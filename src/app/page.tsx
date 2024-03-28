@@ -1,10 +1,32 @@
-import Image from "next/image";
+// Types
+import { Todo, TodoListProps } from "./types";
+import { NextPage } from "next";
 
-export default function TodoMain() {
-  const fakeData = [
+// Components
+import TodoList from "@/components/todoList/TodoList";
+import NewTodoInput from "@/components/newTodoInput/NewTodoInput";
+import "./globals.css";
+
+export default function Home(): NextPage {
+  const fakeData: Todo[] = [
     {
       id: 1,
       text: "Yapılacak İş 1",
+      isCompleted: false,
+    },
+    {
+      id: 15156,
+      text: "Yapılacak İş 1 Yapılacak İş 1 Yapılacak İş 1Yapılacak İş 1  Yapılacak İş 1 Yapılacak İş 1 Yapılacak İş 1 Yapılacak İş 1 ",
+      isCompleted: false,
+    },
+    {
+      id: 7,
+      text: "Yapılacak İş 1 Yapılacak İş 1 Yapılacak İş 1Yapılacak İş 1  Yapılacak İş 1 Yapılacak İş 1 Yapılacak İş 1 Yapılacak İş 1 ",
+      isCompleted: false,
+    },
+    {
+      id: 8,
+      text: "Yapılacak İş 1 Yapılacak İş 1 Yapılacak İş 1Yapılacak İş 1  Yapılacak İş 1 Yapılacak İş 1 Yapılacak İş 1 Yapılacak İş 1 ",
       isCompleted: false,
     },
     {
@@ -29,54 +51,17 @@ export default function TodoMain() {
     },
   ];
 
-  const completedTodos = fakeData.filter((todo) => todo.isCompleted);
-  const uncompletedTodos = fakeData.filter((todo) => !todo.isCompleted);
-
-  const completedTodosList = completedTodos.map((todo) => (
-    <div key={todo.id} className="card m-2  ">
-      <div className="card-body p-2">
-        <div className="card-text text-start ">
-          <s>{todo.text}</s>
-        </div>
-      </div>
-    </div>
-  ));
-
-  const uncompletedTodosList = uncompletedTodos.map((todo) => (
-    <div key={todo.id} className="card m-2">
-      <div className="card-body p-2">
-        <div className="card-text text-start ">{todo.text}</div>
-      </div>
-    </div>
-  ));
-
   return (
-    <main className="container text-center p-2">
+    <main className="container text-center p-2 vh-100">
       <div className="row justify-content-center">
-        <div className="col-8 border border-black rounded ">
+        <div className="col-8 border border-black shadow-sm p-4 rounded">
           <header className="d-flex flex-column align-items-center py-3">
             <h1>TODO APP</h1>
           </header>
 
-          <div className="row">
-            <div className="col-10">
-              <input type="text" class="form-control" placeholder="Yeni Todo" />
-            </div>
-            <div className="col-2">
-              <button className="btn btn-primary w-100">Ekle</button>
-            </div>
-          </div>
+          <NewTodoInput />
 
-          <div className="row mt-5">
-            <div className="col-6  border-end p-0">
-              <h5>Tamamlanmamış</h5>
-              {uncompletedTodosList}
-            </div>
-            <div className="col-6 p-0 ">
-              <h5>Tamamlanmış</h5>
-              {completedTodosList}
-            </div>
-          </div>
+          <TodoList todoData={fakeData} />
         </div>
       </div>
     </main>

@@ -1,0 +1,13 @@
+#app {
+  min-height: 100vh;
+}
+
+.actions {
+  margin-left: auto;
+}
+
+.card-hover-overlay:hover + .actions {
+  /* Apply visibility and opacity styles here */
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out; /* Optional smooth transition */
+}
