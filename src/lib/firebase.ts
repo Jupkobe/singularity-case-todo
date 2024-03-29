@@ -14,15 +14,3 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const todosCollection = collection(db, "todos");
-
-// FLAG
-
-// var admin = require("firebase-admin");
-
-// var serviceAccount = require("path/to/serviceAccountKey.json");
-
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-// });
-
-// export default admin.firestore();

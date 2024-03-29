@@ -6,8 +6,28 @@
   margin-left: auto;
 }
 
-.card-hover-overlay:hover + .actions {
-  /* Apply visibility and opacity styles here */
+.actions {
+  opacity: 0;
+}
+
+.card:hover {
+  background-color: gainsboro;
+  text-decoration: line-through;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.card:hover .card-body .actions {
   opacity: 1;
-  transition: opacity 0.2s ease-in-out; /* Optional smooth transition */
+  transition: opacity 0.2s ease-in-out;
+}
+
+.completed {
+  background-color: gainsboro;
+  text-decoration: line-through;
+}
+
+.completed:hover {
+  background-color: white;
+  text-decoration: none;
 }

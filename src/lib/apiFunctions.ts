@@ -1,8 +1,11 @@
 export const getData = async () => {
   try {
-    const response = await fetch(`http://localhost:3000/api/todo`, {
-      cache: "no-cache",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/todo`,
+      {
+        cache: "no-cache",
+      }
+    );
 
     if (response.status === 200) {
       const body = await response.json();
@@ -16,13 +19,16 @@ export const getData = async () => {
 
 export const postData = async (text) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/todo`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/todo`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text }),
+      }
+    );
 
     if (response.status === 200) {
       const body = await response.json();
@@ -39,13 +45,16 @@ export const putData = async (todo) => {
     const id = todo.id;
     delete todo.id;
 
-    const response = await fetch(`http://localhost:3000/api/todo/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(todo),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/todo/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(todo),
+      }
+    );
 
     if (response.status === 200) {
       const body = await response.json();
@@ -59,12 +68,15 @@ export const putData = async (todo) => {
 
 export const deleteData = async (id) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/todo/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/todo/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     if (response.status === 200) {
       const body = await response.json();
@@ -80,17 +92,20 @@ export const patchData = async (todo) => {
   try {
     const id = todo.id;
 
-    const response = await fetch(`http://localhost:3000/api/todo/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        text: todo.text,
-        isCompleted: !todo.isCompleted,
-        createdAt: todo.createdAt,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/todo/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text: todo.text,
+          isCompleted: !todo.isCompleted,
+          createdAt: todo.createdAt,
+        }),
+      }
+    );
 
     if (response.status === 200) {
       const body = await response.json();
