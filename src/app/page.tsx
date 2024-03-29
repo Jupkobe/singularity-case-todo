@@ -1,11 +1,8 @@
-// Types
-import { NextPage } from "next";
-
 // Components
 import Todos from "@/components/Todos";
 import "./globals.css";
 
-export default async function Home(): NextPage {
+export default function Home() {
   return (
     <main className="container text-center p-2 vh-100">
       <div className="row justify-content-center">

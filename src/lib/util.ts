@@ -1,4 +1,5 @@
-import { Todo } from "/types";
+// Types
+import { Todo } from "@/types/types";
 
 export function filterTodos(todoData: Todo[], searchValue: String) {
   const filteredTodos = todoData.filter((todo) =>

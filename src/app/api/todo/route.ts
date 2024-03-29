@@ -1,3 +1,6 @@
+// Types
+import { Todo } from "@/types/types";
+
 // Libraries
 import { db, todosCollection } from "@/lib/firebase";
 
@@ -9,13 +12,13 @@ export async function GET() {
   const q = query(todosCollection);
 
   try {
-    const data = [];
+    const data: Todo[] = [];
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       let tempData = doc.data();
       tempData.id = doc.id;
 
-      data.push(tempData);
+      data.push(tempData as Todo);
     });
 
     return NextResponse.json({ status: 200, data });

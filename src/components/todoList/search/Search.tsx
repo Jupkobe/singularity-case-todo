@@ -1,11 +1,20 @@
 "use client";
 
+// Types
+import { ChangeEvent } from "react";
+
 // Icons
 import { Search as SearchIcon } from "react-bootstrap-icons";
 
-export default function Search({ searchValue, setSearchValue }) {
-  function handleChange(e) {
-    setSearchValue(e.target.value);
+export default function Search({
+  searchValue,
+  setSearchValue,
+}: {
+  searchValue: string;
+  setSearchValue: Function;
+}) {
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setSearchValue(e?.target.value);
   }
 
   return (

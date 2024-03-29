@@ -1,5 +1,8 @@
 "use client";
 
+// Types
+import { Todo } from "@/types/types";
+
 // Libraries
 import { useState, useEffect } from "react";
 
@@ -12,7 +15,7 @@ import { getData } from "@/lib/apiFunctions";
 
 export default function Todos() {
   const [todoData, setTodoData] = useState([]);
-  const [editTodo, setEditTodo] = useState(null);
+  const [editTodo, setEditTodo] = useState<Todo | null>(null);
 
   // Refreshes
   const refreshData = async () => {

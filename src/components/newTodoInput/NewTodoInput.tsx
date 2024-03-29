@@ -1,5 +1,9 @@
 "use client";
 
+// Types
+import { Todo } from "@/types/types";
+import { FormEvent, ChangeEvent } from "react";
+
 // Libraries
 import { useState } from "react";
 
@@ -12,27 +16,27 @@ export default function NewTodoInput({
   setEditTodo,
 }: {
   refreshData: VoidFunction;
-  editTodo: Object;
-  setEditTodo: VoidFunction;
+  editTodo: Todo | null;
+  setEditTodo: Function;
 }) {
   const [newTodoValue, setNewTodoValue] = useState("");
 
   // Handles input changes
-  const handleChange = (e: Event) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (editTodo) {
       // If edit exists, edit todo mode
-      setEditTodo((prevEditTodo) => ({
+      setEditTodo((prevEditTodo: Todo) => ({
         ...prevEditTodo,
-        text: e.target.value,
+        text: (e?.target as HTMLInputElement)?.value,
       }));
     } else {
       // If edit do not exists, new todo mode
-      setNewTodoValue(e.target.value);
+      setNewTodoValue((e?.target as HTMLInputElement)?.value);
     }
   };
 
   // Handles form submition as saving current input
-  const handleSubmit = async (e: Event) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (editTodo) {

@@ -1,7 +1,7 @@
 "use client";
 
 // Types
-import { Todo } from "./types";
+import { Todo } from "@/types/types";
 
 // Libraries
 import React, { useState, useEffect, useRef } from "react";
@@ -21,10 +21,10 @@ export default function TodoList({
   setEditTodo,
 }: {
   todoData: Todo[];
-  setTodoData: VoidFunction;
-  setEditTodo: VoidFunction;
-}): React.FC {
-  const [searchValue, setSearchValue] = useState(""); // Search bar value
+  setTodoData: Function;
+  setEditTodo: Function;
+}) {
+  const [searchValue, setSearchValue] = useState<string>(""); // Search bar value
 
   // For Animation
   const [parent] = useAutoAnimate({ duration: 200 });
@@ -35,27 +35,27 @@ export default function TodoList({
   const filteredTodoData = filterTodos(sortedTodoData, searchValue); // Filtering according to the search value
 
   // Action Functions
-  const handleEdit = (todo: Todo): void => {
+  const handleEdit = (todo: Todo): any => {
     // Save the todo as a state so the input field can take as a prop
     setEditTodo(todo);
   };
 
-  const handleDelete = (id: string): void => {
+  const handleDelete = (id: string): any => {
     // Delete from db
     deleteData(id);
 
     // Delete from local
-    setTodoData((prevTodoData) =>
+    setTodoData((prevTodoData: Todo[]) =>
       prevTodoData.filter((todo) => todo.id !== id)
     );
   };
 
-  const handleClick = (todo: Todo): void => {
+  const handleClick = (todo: Todo): any => {
     // complete/uncomplete in the db
     patchData(todo);
 
     // complete/uncomplete locally
-    setTodoData((prevTodoData) =>
+    setTodoData((prevTodoData: Todo[]) =>
       prevTodoData.map((prevTodo) =>
         prevTodo.id === todo.id
           ? { ...todo, isCompleted: !todo.isCompleted }
@@ -79,11 +79,11 @@ export default function TodoList({
       <div className="card-body p-2 d-flex justify-content-end">
         <div className="card-text text-start ">{todo.text}</div>
         <Actions
-          handleEdit={(e) => {
+          handleEdit={(e: React.MouseEvent<HTMLElement>) => {
             e.stopPropagation();
             handleEdit(todo);
           }}
-          handleDelete={(e) => {
+          handleDelete={(e: React.MouseEvent<HTMLElement>) => {
             e.stopPropagation();
             handleDelete(todo.id);
           }}
@@ -101,11 +101,11 @@ export default function TodoList({
       <div className="card-body p-2 d-flex justify-content-end">
         <div className="card-text text-start ">{todo.text}</div>
         <Actions
-          handleEdit={(e) => {
+          handleEdit={(e: React.MouseEvent<HTMLElement>) => {
             e.stopPropagation();
             handleEdit(todo);
           }}
-          handleDelete={(e) => {
+          handleDelete={(e: React.MouseEvent<HTMLElement>) => {
             e.stopPropagation();
             handleDelete(todo.id);
           }}
@@ -116,19 +116,21 @@ export default function TodoList({
   // <--- End of mapping todo arrays --->
 
   return (
-    <div className="row mt-4">
-      <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+    <>
+      <div className="row mt-4">
+        <Search searchValue={searchValue} setSearchValue={setSearchValue} />
 
-      <div className="row mt-2">
-        <div className="col-lg-6 col-md-12 border-end p-0 " ref={parent}>
-          <h5>Tamamlanmamış</h5>
-          {uncompletedTodosList}
-        </div>
-        <div className="col-lg-6 col-md-12 p-0 " ref={parent2}>
-          <h5>Tamamlanmış</h5>
-          {completedTodosList}
+        <div className="row mt-2">
+          <div className="col-lg-6 col-md-12 border-end p-0 " ref={parent}>
+            <h5>Tamamlanmamış</h5>
+            {uncompletedTodosList}
+          </div>
+          <div className="col-lg-6 col-md-12 p-0 " ref={parent2}>
+            <h5>Tamamlanmış</h5>
+            {completedTodosList}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

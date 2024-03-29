@@ -1,3 +1,6 @@
+// Types
+import { Todo } from "@/types/types";
+
 export const getData = async () => {
   try {
     const response = await fetch(
@@ -17,7 +20,7 @@ export const getData = async () => {
   }
 };
 
-export const postData = async (text) => {
+export const postData = async (text: string) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/todo`,
@@ -40,10 +43,9 @@ export const postData = async (text) => {
   }
 };
 
-export const putData = async (todo) => {
+export const putData = async (todo: Todo) => {
   try {
     const id = todo.id;
-    delete todo.id;
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/todo/${id}`,
@@ -52,7 +54,11 @@ export const putData = async (todo) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(todo),
+        body: JSON.stringify({
+          text: todo.text,
+          isCompleted: todo.isCompleted,
+          createdAt: todo.createdAt,
+        }),
       }
     );
 
@@ -66,7 +72,7 @@ export const putData = async (todo) => {
   }
 };
 
-export const deleteData = async (id) => {
+export const deleteData = async (id: string) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/todo/${id}`,
@@ -88,7 +94,7 @@ export const deleteData = async (id) => {
   }
 };
 
-export const patchData = async (todo) => {
+export const patchData = async (todo: Todo) => {
   try {
     const id = todo.id;
 
