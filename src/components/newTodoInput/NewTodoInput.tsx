@@ -3,17 +3,49 @@
 // Libraries
 import { useState } from "react";
 
-export default function NewTodoInput() {
+// Functions
+import { postData, putData } from "@/lib/apiFunctions";
+
+export default function NewTodoInput({
+  refreshData,
+  editTodo,
+  setEditTodo,
+}: {
+  refreshData: VoidFunction;
+  editTodo: Object;
+  setEditTodo: VoidFunction;
+}) {
   const [newTodoValue, setNewTodoValue] = useState("");
 
+  // Handles input changes
   const handleChange = (e: Event) => {
-    setNewTodoValue(e.target.value);
+    if (editTodo) {
+      // If edit exists, edit todo mode
+      setEditTodo((prevEditTodo) => ({
+        ...prevEditTodo,
+        text: e.target.value,
+      }));
+    } else {
+      // If edit do not exists, new todo mode
+      setNewTodoValue(e.target.value);
+    }
   };
 
-  const handleSubmit = (e) => {
+  // Handles form submition as saving current input
+  const handleSubmit = async (e: Event) => {
     e.preventDefault();
 
-    console.log("Test Input Submit", newTodoValue);
+    if (editTodo) {
+      // If edit exists, edit todo mode
+      await putData(editTodo);
+      setEditTodo(null);
+    } else {
+      // If edit do not exists, new todo mode
+      setNewTodoValue("");
+      await postData(newTodoValue);
+    }
+
+    refreshData();
   };
 
   return (
@@ -26,7 +58,7 @@ export default function NewTodoInput() {
             placeholder="Yeni Todo"
             aria-label="Yeni Todo"
             aria-describedby="button-addon2"
-            value={newTodoValue}
+            value={editTodo ? editTodo.text : newTodoValue}
             onChange={handleChange}
             required
           />
@@ -35,7 +67,7 @@ export default function NewTodoInput() {
             type="submit"
             id="button-addon2"
           >
-            Ekle
+            {editTodo ? "Düzenle" : "Ekle"}
           </button>
         </form>
       </div>
